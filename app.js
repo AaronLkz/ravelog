@@ -10,7 +10,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     });
 });
 
-// Aquí puedes agregar tu integración con TMDb para carátulas
+// Integración con TMDb para carátulas
 document.querySelectorAll('.gallery').forEach(ul => {
     const isSeries = ul.parentElement.id.includes('series');
     ul.querySelectorAll('li').forEach(async li => {
@@ -21,6 +21,12 @@ document.querySelectorAll('.gallery').forEach(ul => {
             img.alt = li.textContent;
             img.className = 'poster';
             li.prepend(img);
+        } else {
+            // Solo agrega la carátula fake si no hay imagen real
+            const fakePoster = document.createElement('div');
+            fakePoster.className = 'fake-poster';
+            fakePoster.textContent = '🎬';
+            li.prepend(fakePoster);
         }
     });
 });

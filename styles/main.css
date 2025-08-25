@@ -1,15 +1,16 @@
 :root {
     --bg: #181a20;
     --card: #23262f;
-    --accent: #4f8cff;
+    --accent: #FF6F61;
     --text: #eaeaea;
     --muted: #b0b3b8;
-    --radius: 16px;
+    --radius: 18px;
+    --shadow: 0 4px 24px #0005;
 }
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Troubleside', Arial, sans-serif;
     margin: 0;
     min-height: 100vh;
 }
@@ -18,9 +19,11 @@ header {
     padding: 2em 1em 1em 1em;
 }
 header h1 {
-    font-size: 2.2em;
+    font-size: 2.5em;
     letter-spacing: 2px;
     margin-bottom: 0.2em;
+    color: var(--accent);
+    text-shadow: 0 2px 8px #0007;
 }
 header p {
     color: var(--muted);
@@ -34,21 +37,25 @@ header p {
 }
 .tab-btn {
     background: var(--card);
-    color: var(--text);
+    color: var(--accent);
     border: none;
     padding: 0.8em 2em;
     border-radius: var(--radius);
-    font-size: 1em;
+    font-size: 1.05em;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 8px #0002;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 .tab-btn.active, .tab-btn:hover {
     background: var(--accent);
     color: #fff;
+    box-shadow: 0 4px 16px #FF6F6155;
 }
 main {
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
     padding: 0 1em 2em 1em;
 }
@@ -61,33 +68,48 @@ section.active {
 }
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.5em;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2em;
     list-style: none;
     padding: 0;
 }
 .gallery li {
     background: var(--card);
     border-radius: var(--radius);
-    box-shadow: 0 2px 12px #0003;
-    padding: 1em 0.5em 0.5em 0.5em;
+    box-shadow: var(--shadow);
+    padding: 1.2em 0.7em 0.7em 0.7em;
     text-align: center;
     font-size: 1em;
-    min-height: 220px;
+    min-height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     position: relative;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.gallery li:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 8px 32px #FF6F6133;
+    border: 2px solid var(--accent);
+}
+.poster {
+    width: 110px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 0.8em;
+    background: #222;
+    box-shadow: 0 1px 8px #0004;
+    border: 2px solid var(--accent);
 }
 .gallery .title {
     display: block;
     max-width: 95%;
-    min-height: 2.8em; /* Ajusta según el tamaño de fuente */
+    min-height: 2.8em;
     line-height: 1.4em;
-    font-weight: 500;
-    font-size: 1em;
+    font-weight: 600;
+    font-size: 1.05em;
     color: var(--text);
     text-align: center;
     overflow: hidden;
@@ -95,37 +117,31 @@ section.active {
     white-space: normal;
     word-break: break-word;
     margin-bottom: 0.5em;
+    letter-spacing: 0.5px;
 }
-.gallery li:hover {
-    transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 6px 24px #0005;
-}
-.poster {
-    width: 100px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 0.7em;
-    background: #222;
+.gallery .fake-poster {
+    width: 110px;
+    height: 160px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent) 40%, var(--card) 100%);
+    margin-bottom: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 2em;
+    font-weight: bold;
+    opacity: 0.7;
     box-shadow: 0 1px 8px #0004;
-}
-.gallery span {
-    color: var(--accent);
-    font-size: 0.95em;
-    margin-bottom: 0.3em;
-}
-.gallery p {
-    color: var(--muted);
-    font-size: 0.85em;
-    margin: 0.5em 0 0 0;
 }
 footer {
     text-align: center;
     padding: 2em 1em 1em 1em;
     color: var(--muted);
-    font-size: 0.95em;
+    font-size: 1em;
+    letter-spacing: 1px;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .tabs {
         flex-direction: column;
         gap: 0.5em;
