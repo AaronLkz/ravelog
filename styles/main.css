@@ -143,8 +143,21 @@ footer {
 }
 @media (max-width: 700px) {
     .tabs {
-        flex-direction: column;
+        flex-wrap: wrap;
+        flex-direction: row;
         gap: 0.5em;
+        justify-content: center;
+        background: #20232a;
+        border-radius: var(--radius);
+        padding: 0.5em 0.5em;
+    }
+    .tab-btn {
+        flex: 1 1 40%;
+        min-width: 120px;
+        margin: 0.2em;
+        font-size: 1em;
+        padding: 0.7em 0.5em;
+        text-align: center;
     }
     .gallery {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
