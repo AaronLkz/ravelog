@@ -16,8 +16,9 @@ export async function agregarCaratulas() {
     document.querySelectorAll('.gallery').forEach(ul => {
         const isSeries = ul.parentElement.id.includes('series');
         ul.querySelectorAll('li').forEach(async li => {
-            // Evita duplicar carátulas si ya existe una imagen
-            if (li.querySelector('img.poster')) return;
+            // Elimina cualquier carátula previa
+            const prevImg = li.querySelector('img.poster');
+            if (prevImg) prevImg.remove();
             const titleSpan = li.querySelector('.title');
             const titulo = titleSpan ? titleSpan.textContent : li.textContent;
             const posterUrl = await fetchPoster(titulo, isSeries ? 'tv' : 'movie');
