@@ -1,7 +1,7 @@
 :root {
     --bg: #181a20;
     --card: #23262f;
-    --accent: #FF6F61;
+    --accent: #FFD6A5; /* Naranja pastel cálido */
     --text: #eaeaea;
     --muted: #b0b3b8;
     --radius: 18px;
@@ -51,8 +51,8 @@ header p {
 }
 .tab-btn.active, .tab-btn:hover {
     background: var(--accent);
-    color: #fff;
-    box-shadow: 0 4px 16px #FF6F6155;
+    color: #23262f;
+    box-shadow: 0 4px 16px #FFD6A555;
 }
 main {
     max-width: 1000px;
@@ -90,8 +90,8 @@ section.active {
 }
 .gallery li:hover {
     transform: translateY(-6px) scale(1.04);
-    box-shadow: 0 8px 32px #FF6F6133;
     border: 2px solid var(--accent);
+    box-shadow: 0 8px 32px #FFD6A533;
 }
 .poster {
     width: 110px;
