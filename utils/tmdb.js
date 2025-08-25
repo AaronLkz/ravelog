@@ -1,20 +1,32 @@
-const TMDB_API_KEY = '4383dc16d81a7584696651b492c79c6a';
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-const TMDB_IMG_URL = 'https://image.tmdb.org/t/p/w185';
+// utils/tmdb.js
 
-export async function fetchPoster(title, type = 'movie') {
-    const urlES = `${TMDB_BASE_URL}/search/${type}?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(title)}&language=es-MX`;
-    const urlEN = `${TMDB_BASE_URL}/search/${type}?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(title)}&language=en-US`;
+const TMDB_API_KEY = "4383dc16d81a7584696651b492c79c6a";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_IMG_URL = "https://image.tmdb.org/t/p/w500";
 
-    let res = await fetch(urlES);
-    let data = await res.json();
-    if (data.results && data.results[0] && data.results[0].poster_path) {
-        return TMDB_IMG_URL + data.results[0].poster_path;
-    }
-    res = await fetch(urlEN);
-    data = await res.json();
-    if (data.results && data.results[0] && data.results[0].poster_path) {
+// Función para buscar películas o series y devolver poster
+export async function fetchPoster(query, tipo = 'movie') {
+    const url = `${TMDB_BASE_URL}/search/${tipo}?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.results && data.results.length > 0 && data.results[0].poster_path) {
         return TMDB_IMG_URL + data.results[0].poster_path;
     }
     return null;
+}
+
+// Si luego quieres exportar otras funciones (buscarSeries, obtenerDetalle, etc.)
+export async function buscarSeries(query) {
+    const url = `${TMDB_BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.results;
+}
+
+export async function buscarPeliculas(query) {
+    const url = `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.results;
 }
