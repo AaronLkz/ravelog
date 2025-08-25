@@ -81,6 +81,21 @@ section.active {
     position: relative;
     transition: transform 0.2s;
 }
+.gallery .title {
+    display: block;
+    max-width: 95%;
+    min-height: 2.8em; /* Ajusta según el tamaño de fuente */
+    line-height: 1.4em;
+    font-weight: 500;
+    font-size: 1em;
+    color: var(--text);
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
+    margin-bottom: 0.5em;
+}
 .gallery li:hover {
     transform: translateY(-4px) scale(1.03);
     box-shadow: 0 6px 24px #0005;
