@@ -30,14 +30,16 @@ async function cargarLista(tabla, ulSelector, isSeries = false) {
 }
 
 // Función para cargar todas las listas
-function cargarTodo() {
-    cargarLista('vistas', '#vistas-peliculas .gallery');
-    cargarLista('vistas_series', '#vistas-series .gallery', true);
-    cargarLista('pendientes', '#pendientes-peliculas .gallery');
-    cargarLista('pendientes_series', '#pendientes-series .gallery', true);
+async function cargarTodo() {
+    await Promise.all([
+        cargarLista('vistas', '#vistas-peliculas .gallery'),
+        cargarLista('vistas_series', '#vistas-series .gallery', true),
+        cargarLista('pendientes', '#pendientes-peliculas .gallery'),
+        cargarLista('pendientes_series', '#pendientes-series .gallery', true)
+    ]);
     // Llama a agregarCaratulas después de actualizar las listas
     if (window.agregarCaratulas) {
-        setTimeout(window.agregarCaratulas, 100);
+        window.agregarCaratulas();
     }
 }
 
