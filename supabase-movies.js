@@ -35,6 +35,10 @@ function cargarTodo() {
     cargarLista('vistas_series', '#vistas-series .gallery', true);
     cargarLista('pendientes', '#pendientes-peliculas .gallery');
     cargarLista('pendientes_series', '#pendientes-series .gallery', true);
+    // Llama a agregarCaratulas después de actualizar las listas
+    if (window.agregarCaratulas) {
+        setTimeout(window.agregarCaratulas, 100);
+    }
 }
 
 // Inicializa
