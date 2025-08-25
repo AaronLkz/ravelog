@@ -1,71 +1,130 @@
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f9f9f9;
-    margin: 0;
-    color: #222;
+:root {
+    --bg: #181a20;
+    --card: #23262f;
+    --accent: #4f8cff;
+    --text: #eaeaea;
+    --muted: #b0b3b8;
+    --radius: 16px;
 }
-
-header, footer {
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+header {
     text-align: center;
-    padding: 1em;
-    background: #4f8cff;
+    padding: 2em 1em 1em 1em;
+}
+header h1 {
+    font-size: 2.2em;
+    letter-spacing: 2px;
+    margin-bottom: 0.2em;
+}
+header p {
+    color: var(--muted);
+    font-size: 1.1em;
+}
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 2em 0 1em 0;
+}
+.tab-btn {
+    background: var(--card);
+    color: var(--text);
+    border: none;
+    padding: 0.8em 2em;
+    border-radius: var(--radius);
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px #0002;
+}
+.tab-btn.active, .tab-btn:hover {
+    background: var(--accent);
     color: #fff;
 }
-
 main {
     max-width: 900px;
     margin: auto;
-    padding: 1em;
+    padding: 0 1em 2em 1em;
 }
-
-h2 {
-    margin-top: 2em;
-    color: #4f8cff;
+section {
+    display: none;
+    animation: fadeIn 0.5s;
 }
-
+section.active {
+    display: block;
+}
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5em;
     list-style: none;
     padding: 0;
 }
-
 .gallery li {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px #0001;
-    padding: 0.5em;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 12px #0003;
+    padding: 1em 0.5em 0.5em 0.5em;
     text-align: center;
     font-size: 1em;
-    min-height: 180px;
+    min-height: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     position: relative;
+    transition: transform 0.2s;
 }
-
+.gallery li:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 24px #0005;
+}
 .poster {
     width: 100px;
     height: 150px;
     object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 0.5em;
-    background: #eee;
-    box-shadow: 0 1px 4px #0002;
+    border-radius: 10px;
+    margin-bottom: 0.7em;
+    background: #222;
+    box-shadow: 0 1px 8px #0004;
 }
-
+.gallery span {
+    color: var(--accent);
+    font-size: 0.95em;
+    margin-bottom: 0.3em;
+}
+.gallery p {
+    color: var(--muted);
+    font-size: 0.85em;
+    margin: 0.5em 0 0 0;
+}
+footer {
+    text-align: center;
+    padding: 2em 1em 1em 1em;
+    color: var(--muted);
+    font-size: 0.95em;
+}
 @media (max-width: 600px) {
-    main {
-        padding: 0.5em;
-    }
-    .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    .tabs {
+        flex-direction: column;
         gap: 0.5em;
     }
-    .gallery li {
-        font-size: 0.95em;
-        min-height: 160px;
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1em;
     }
+    .gallery li {
+        min-height: 180px;
+        font-size: 0.95em;
+    }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: none;}
 }

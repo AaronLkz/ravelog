@@ -9,11 +9,16 @@
 <body>
     <header>
         <h1>Mi Catálogo</h1>
-        <p>Registro de películas y series vistas y pendientes</p>
+        <p>Películas y series vistas y pendientes</p>
     </header>
+    <nav class="tabs">
+        <button class="tab-btn active" data-tab="vistas-peliculas">Películas Vistas</button>
+        <button class="tab-btn" data-tab="vistas-series">Series Vistas</button>
+        <button class="tab-btn" data-tab="pendientes-peliculas">Películas Pendientes</button>
+        <button class="tab-btn" data-tab="pendientes-series">Series Pendientes</button>
+    </nav>
     <main>
-        <section>
-            <h2>Películas Vistas</h2>
+        <section id="vistas-peliculas" class="active">
             <ul class="gallery">
                 <li>Culpa mía</li>
                 <li>Culpa tuya</li>
@@ -22,14 +27,14 @@
                 <li>Avengers: Infinity War</li>
                 <li>Capitán América: Civil War</li>
                 <li>Guardianes de la galaxia Vol.3</li>
-                <li>Luna de Miel en Familia </li>
+                <li>Luna de Miel en Familia</li>
                 <li>Quienes son los Millers?</li>
                 <li>Aladdin</li>
                 <li>Desde mi Cielo</li>
-                <li>La propuesta </li>
+                <li>La propuesta</li>
                 <li>Stand de los besos 1</li>
                 <li>Spider-man: sin camino a casa</li>
-                <li>Enredados </li>
+                <li>Enredados</li>
                 <li>Sonic 3</li>
                 <li>Moana 2</li>
                 <li>Mufasa: el rey león</li>
@@ -55,15 +60,13 @@
                 <li>You Are the Apple of My Eye</li>
             </ul>
         </section>
-        <section>
-            <h2>Series Vistas</h2>
+        <section id="vistas-series">
             <ul class="gallery">
                 <li>Propuesta laboral</li>
                 <li>Kim Bok-joo: El Hada de las pesas</li>
             </ul>
         </section>
-        <section>
-            <h2>Películas Pendientes</h2>
+        <section id="pendientes-peliculas">
             <ul class="gallery">
                 <li>Your name</li>
                 <li>Proyecto X</li>
@@ -85,15 +88,14 @@
                 <li>Las Crónicas de Narnia: La Travesía del Viajero del Alba</li>
             </ul>
         </section>
-        <section>
-            <h2>Series Pendientes</h2>
+        <section id="pendientes-series">
             <ul class="gallery">
                 <li>King The Land</li>
             </ul>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 Mi Catálogo</p>
+        <p>&copy; 2025 Mi Catálogo</p>
     </footer>
     <script type="module" src="app.js"></script>
 </body>
