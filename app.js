@@ -16,8 +16,8 @@ export async function agregarCaratulas() {
     document.querySelectorAll('.gallery').forEach(ul => {
         const isSeries = ul.parentElement.id.includes('series');
         ul.querySelectorAll('li').forEach(async li => {
-            // Evita duplicar carátulas si ya existe una imagen o fake-poster
-            if (li.querySelector('img.poster, .fake-poster')) return;
+            // Evita duplicar carátulas si ya existe una imagen
+            if (li.querySelector('img.poster')) return;
             const titleSpan = li.querySelector('.title');
             const titulo = titleSpan ? titleSpan.textContent : li.textContent;
             const posterUrl = await fetchPoster(titulo, isSeries ? 'tv' : 'movie');
@@ -27,12 +27,8 @@ export async function agregarCaratulas() {
                 img.alt = titulo;
                 img.className = 'poster';
                 li.prepend(img);
-            } else {
-                const fakePoster = document.createElement('div');
-                fakePoster.className = 'fake-poster';
-                fakePoster.textContent = '🎬';
-                li.prepend(fakePoster);
             }
+            // Si no hay poster, no se agrega nada visual
         });
     });
 }

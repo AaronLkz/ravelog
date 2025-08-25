@@ -6,7 +6,7 @@ const TMDB_IMG_URL = "https://image.tmdb.org/t/p/w500";
 
 // Función para buscar películas o series y devolver poster
 export async function fetchPoster(query, tipo = 'movie') {
-    const url = `${TMDB_BASE_URL}/search/${tipo}?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(query)}`;
+    const url = `${TMDB_BASE_URL}/search/${tipo}?api_key=${TMDB_API_KEY}&language=es-MX&query=${encodeURIComponent(query)}`;
     const res = await fetch(url);
     const data = await res.json();
 
@@ -18,14 +18,14 @@ export async function fetchPoster(query, tipo = 'movie') {
 
 // Si luego quieres exportar otras funciones (buscarSeries, obtenerDetalle, etc.)
 export async function buscarSeries(query) {
-    const url = `${TMDB_BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(query)}`;
+    const url = `${TMDB_BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&language=es-MX&query=${encodeURIComponent(query)}`;
     const res = await fetch(url);
     const data = await res.json();
     return data.results;
 }
 
 export async function buscarPeliculas(query) {
-    const url = `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(query)}`;
+    const url = `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=es-MX&query=${encodeURIComponent(query)}`;
     const res = await fetch(url);
     const data = await res.json();
     return data.results;
