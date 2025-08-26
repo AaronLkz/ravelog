@@ -57,11 +57,12 @@ header p {
 main {
     max-width: 1000px;
     margin: auto;
-    padding: 0 1em 2em 1em;
+    padding: 0 1em 3em 1em; /* más espacio abajo */
 }
 section {
     display: none;
     animation: fadeIn 0.5s;
+    margin-bottom: 2.5em;
 }
 section.active {
     display: block;
