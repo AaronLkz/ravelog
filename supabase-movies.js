@@ -4,26 +4,17 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Función para cargar listas desde Supabase
-async function cargarLista(tabla, ulSelector, isSeries = false) {
+async function cargarLista(tabla, ulSelector) {
     const { data, error } = await supabase.from(tabla).select('*');
+    if (error) {
+        console.error(`Error cargando ${tabla}:`, error.message);
+    }
     const ul = document.querySelector(ulSelector);
     ul.innerHTML = '';
     if (data) {
         data.forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `<span class="title">${item.titulo}</span>`;
-            // Botón para mover de pendientes a vistas
-            if (tabla === 'pendientes') {
-                const btn = document.createElement('button');
-                btn.className = 'mark-viewed';
-                btn.textContent = 'Marcar como vista';
-                btn.onclick = async () => {
-                    await supabase.from('pendientes').delete().eq('id', item.id);
-                    await supabase.from('vistas').insert([{ titulo: item.titulo, tipo: item.tipo }]);
-                    cargarTodo();
-                };
-                li.appendChild(btn);
-            }
             ul.appendChild(li);
         });
     }
@@ -33,9 +24,9 @@ async function cargarLista(tabla, ulSelector, isSeries = false) {
 async function cargarTodo() {
     await Promise.all([
         cargarLista('vistas', '#vistas-peliculas .gallery'),
-        cargarLista('vistas_series', '#vistas-series .gallery', true),
+        cargarLista('vistas_series', '#vistas-series .gallery'),
         cargarLista('pendientes', '#pendientes-peliculas .gallery'),
-        cargarLista('pendientes_series', '#pendientes-series .gallery', true)
+        cargarLista('pendientes_series', '#pendientes-series .gallery')
     ]);
     // Llama a agregarCaratulas después de actualizar las listas
     if (window.agregarCaratulas) {
