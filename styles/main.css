@@ -108,6 +108,7 @@ section.active {
     display: block;
     max-width: 95%;
     min-height: 2.8em;
+    max-height: 2.8em; /* Limita la altura a dos líneas */
     line-height: 1.4em;
     font-weight: 600;
     font-size: 1.05em;
@@ -119,6 +120,11 @@ section.active {
     word-break: break-word;
     margin-bottom: 0.5em;
     letter-spacing: 0.5px;
+
+    /* Oculta el texto sobrante con puntos suspensivos en varias líneas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Máximo 2 líneas */
+    -webkit-box-orient: vertical;
 }
 .gallery .fake-poster {
     width: 110px;
