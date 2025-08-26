@@ -13,8 +13,17 @@ async function cargarLista(tabla, ulSelector) {
     ul.innerHTML = '';
     if (data) {
         data.forEach(item => {
+            const tieneLink = !!item.rave_link;
             const li = document.createElement('li');
-            li.innerHTML = `<span class="title">${item.titulo}</span>`;
+            li.innerHTML = `
+                <span class="title">${item.titulo}</span>
+                <a 
+                    class="rave-btn${tieneLink ? '' : ' disabled'}"
+                    href="${tieneLink ? item.rave_link : '#'}"
+                    target="_blank" rel="noopener"
+                    ${tieneLink ? '' : 'tabindex="-1" aria-disabled="true"'}
+                >Ver en Rave</a>
+            `;
             ul.appendChild(li);
         });
     }
