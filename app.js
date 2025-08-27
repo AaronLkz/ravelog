@@ -20,11 +20,17 @@ export async function agregarCaratulas() {
         ul.querySelectorAll('li').forEach(li => allLis.push({li, isSeries: ul.parentElement.id.includes('series')}));
     });
     for (const {li, isSeries} of allLis) {
-        // Elimina todas las carátulas previas
         li.querySelectorAll('img.poster').forEach(img => img.remove());
         const titleSpan = li.querySelector('.title');
         const titulo = titleSpan ? titleSpan.textContent : li.textContent;
-        const posterUrl = await fetchPoster(titulo, isSeries ? 'tv' : 'movie');
+        // Usa tmdb_id si existe
+        const tmdbId = li.dataset.tmdbId;
+        let posterUrl;
+        if (tmdbId) {
+            posterUrl = await fetchPoster(null, isSeries ? 'tv' : 'movie', tmdbId);
+        } else {
+            posterUrl = await fetchPoster(titulo, isSeries ? 'tv' : 'movie');
+        }
         if (posterUrl) {
             const img = document.createElement('img');
             img.src = posterUrl;

@@ -24,6 +24,10 @@ async function cargarLista(tabla, ulSelector) {
                     ${tieneLink ? '' : 'tabindex="-1" aria-disabled="true"'}
                 >Ver en Rave</a>
             `;
+            // Puedes guardar el tmdb_id como atributo data en el <li> (no visible)
+            if (item.tmdb_id) {
+                li.dataset.tmdbId = item.tmdb_id;
+            }
             ul.appendChild(li);
         });
     }
