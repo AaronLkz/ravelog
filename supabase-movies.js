@@ -101,7 +101,7 @@ async function cargarTodo() {
         cargarLista('pendientes_series', '#pendientes-series .gallery')
     ]);
     if (window.agregarCaratulas) {
-        window.agregarCaratulas();
+        await window.agregarCaratulas(); // Usa await si es async
     }
 }
 
