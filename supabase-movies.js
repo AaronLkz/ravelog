@@ -49,3 +49,28 @@ async function cargarTodo() {
 
 // Inicializa
 cargarTodo();
+
+// Barra de búsqueda para filtrar títulos en la sección activa
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return;
+    searchInput.addEventListener('input', () => {
+        const filtro = searchInput.value.trim().toLowerCase();
+        // Busca la sección activa
+        const activeSection = document.querySelector('main section.active');
+        if (!activeSection) return;
+        // Filtra los elementos de la galería
+        activeSection.querySelectorAll('.gallery li').forEach(li => {
+            const titulo = li.querySelector('.title')?.textContent?.toLowerCase() || '';
+            li.style.display = titulo.includes(filtro) ? '' : 'none';
+        });
+    });
+});
+
+// Opcional: limpia la búsqueda al cambiar de tab
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) searchInput.value = '';
+    });
+});
