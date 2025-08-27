@@ -258,6 +258,20 @@ footer {
         font-size: 1em;
         padding: 0.5em 0;
     }
+    .search-bar {
+        justify-content: center;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0 1em;
+    }
+    .search-bar input[type="text"] {
+        width: 90%;
+        max-width: 340px;
+        margin: 0 auto;
+        display: block;
+        font-size: 1em;
+        box-sizing: border-box;
+    }
 }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px);}
