@@ -61,20 +61,20 @@ header h1 {
     margin: 0;
     position: relative;
     z-index: 2;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: none;
+    color: var(--accent);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 header h1 span {
     display: inline-block;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 header h1 span:hover {
     transform: scale(1.05);
+    text-shadow: 0 4px 16px rgba(255, 214, 165, 0.6);
+    color: var(--accent-hover);
 }
 
 /* Navegación mejorada */
