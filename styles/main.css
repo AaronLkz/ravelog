@@ -278,6 +278,38 @@ section.active {
     transition: all 0.3s ease;
 }
 
+/* Skeleton loading para evitar parpadeo */
+.gallery li::after {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 270px;
+    background: linear-gradient(90deg, 
+        var(--bg-secondary) 25%, 
+        var(--card) 50%, 
+        var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    border-radius: var(--radius);
+    animation: skeleton-loading 1.5s infinite;
+    z-index: 1;
+}
+
+.gallery li:has(.poster)::after {
+    display: none;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
 .gallery li:hover .poster,
 .gallery li:hover .fake-poster {
     border-color: var(--accent);
@@ -468,10 +500,16 @@ footer {
         width: 150px;
         height: 225px;
     }
+    
+    /* Ajustar skeleton para móviles */
+    .gallery li::after {
+        width: 150px;
+        height: 225px;
+        top: 1.25rem;
+    }
 }
 
 @media (max-width: 480px) {
-    /* Mantener 2 carátulas por fila en móviles pequeños */
     .gallery {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
@@ -492,6 +530,14 @@ footer {
         min-width: 100px;
         padding: 0.625rem 0.75rem;
         font-size: 0.85rem;
+        margin: 0.15rem;
+    }
+    
+    /* Ajustar skeleton para móviles pequeños */
+    .gallery li::after {
+        width: 120px;
+        height: 180px;
+        top: 1rem;
     }
 }
 
