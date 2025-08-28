@@ -90,6 +90,14 @@ header h1 span:hover {
     -webkit-backdrop-filter: blur(20px);
 }
 
+/* Quitar sticky en móvil */
+@media (max-width: 900px) {
+    .tabs {
+        position: static;
+        top: unset;
+    }
+}
+
 .tabs-row {
     display: flex;
     gap: 1.5rem;
