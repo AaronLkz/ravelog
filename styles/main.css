@@ -421,65 +421,71 @@ footer {
 .chapters-gallery {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 2rem;
-    padding: 2rem;
+    gap: 1.5rem;
     list-style: none;
-    margin: 0;
+    padding: 0;
 }
+
 .chapters-gallery li {
-    background: #1a1a1a;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem; /* antes 1.5rem */
+    text-align: center;
+    min-height: 320px; /* antes 400px */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
-.chapters-gallery img {
-    width: 140px;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    border: 2px solid var(--border);
-    box-shadow: var(--shadow);
-    background: var(--bg-secondary);
-    object-fit: cover;
+
+.chapters-gallery li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    z-index: 2;
 }
-.chapters-gallery li:hover img,
-.chapters-gallery img:focus {
+
+.chapters-gallery li:hover::before {
+    transform: scaleX(1);
+}
+
+.chapters-gallery li:hover {
+    transform: translateY(-8px) scale(1.02);
     border-color: var(--accent);
-    transform: scale(1.05);
+    background: var(--card-hover);
     box-shadow: var(--shadow-hover);
-    outline: none;
 }
+
+.chapters-gallery img {
+    width: 100%;
+    max-width: 260px;
+    height: 146px;
+    border-radius: var(--radius);
+    margin-bottom: 0.3rem; /* antes 0.5rem */
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border);
+    object-fit: cover;
+    transition: all 0.3s ease;
+    display: block;
+}
+
 .chapter-title {
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #FFD6A5;
-    text-align: center;
+    margin-bottom: 0.2rem; /* antes 0.3rem */
 }
+
 .chapter-overview {
-    font-size: 0.95em;
-    color: #eaeaea;
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-.rave-btn {
-    margin-top: 0.5rem;
-    background: #FFD6A5;
-    color: #1a1a1a;
-    border: none;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.rave-btn.disabled {
-    background: #444;
-    color: #aaa;
-    pointer-events: none;
+    margin-bottom: 0.2rem; /* antes 0.3rem */
 }
 
 /* Animaciones */
@@ -521,8 +527,8 @@ footer {
     
     .chapters-gallery {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        padding: 1rem;
+        gap: 0.8rem;
+        padding: 0.7rem;
     }
 }
 
@@ -663,13 +669,13 @@ footer {
     .chapters-gallery {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
-        padding: 0.5rem;
+        padding: 0.3rem;
         margin: 0;
         width: 100%;
         box-sizing: border-box;
     }
     .chapters-gallery li {
-        padding: 0.5rem;
+        padding: 0.3rem;
     }
     .chapters-gallery img {
         width: 100%;
