@@ -527,8 +527,22 @@ footer {
     
     .chapters-gallery {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
-        padding: 0.7rem;
+        gap: 0.5rem;
+        padding: 0.3rem;
+    }
+    .chapters-gallery li {
+        min-height: 140px;
+        padding: 0.3rem;
+    }
+    .chapters-gallery img {
+        max-width: 100px;
+        height: 56px;
+        margin-bottom: 0.2rem;
+    }
+    .chapter-title,
+    .chapter-overview {
+        margin-bottom: 0.1rem;
+        font-size: 0.95em;
     }
 }
 
@@ -668,8 +682,8 @@ footer {
     
     .chapters-gallery {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-        padding: 0.3rem;
+        gap: 0.3rem;
+        padding: 0.1rem;
         margin: 0;
         width: 100%;
         box-sizing: border-box;
@@ -718,4 +732,20 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
+}
+
+@media (max-width: 900px) {
+    .rave-btn {
+        min-width: 100px;
+        padding: 0.5rem 1rem;
+        font-size: 0.92rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rave-btn {
+        min-width: 80px;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+    }
 }
