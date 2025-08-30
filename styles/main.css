@@ -417,6 +417,63 @@ footer {
     letter-spacing: 0.5px;
 }
 
+/* Ajuste visual para capítulos: posters más pequeños y grid compacto */
+.chapters-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.2rem;
+    padding: 1.5rem;
+    list-style: none;
+    margin: 0;
+}
+.chapters-gallery li {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.chapters-gallery img {
+    width: 100px;
+    max-width: 100%;
+    border-radius: 6px;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.chapter-title {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: #FFD6A5;
+    font-size: 0.98em;
+    text-align: center;
+}
+.chapter-overview {
+    font-size: 0.92em;
+    color: #eaeaea;
+    margin-bottom: 0.4rem;
+    text-align: center;
+}
+.rave-btn {
+    margin-top: 0.3rem;
+    background: #FFD6A5;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 7px;
+    padding: 0.4rem 0.8rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.rave-btn.disabled {
+    background: #444;
+    color: #aaa;
+    pointer-events: none;
+}
+
 /* Animaciones */
 @keyframes fadeInUp {
     from {

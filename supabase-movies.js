@@ -72,22 +72,25 @@ async function cargarTodasSeries() {
     const ul = document.querySelector('#todas-series .gallery');
     ul.innerHTML = '';
     data.forEach(item => {
-        const tieneLink = !!item.rave_link;
         const li = document.createElement('li');
+        li.classList.add('serie-item');
         li.innerHTML = `
             <span class="title">${item.titulo}</span>
-            <a 
-                class="rave-btn${tieneLink ? '' : ' disabled'}"
-                href="${tieneLink ? item.rave_link : '#'}"
-                target="_blank" rel="noopener"
-                ${tieneLink ? '' : 'tabindex="-1" aria-disabled="true"'}
-            >Ver en Rave</a>
+            <a class="rave-btn" href="${getCapitulosLink(item)}">Ver capítulos</a>
         `;
-        if (item.tmdb_id) {
-            li.dataset.tmdbId = item.tmdb_id;
-        }
         ul.appendChild(li);
     });
+}
+
+// Función para obtener el link de capítulos según el título
+function getCapitulosLink(item) {
+    // Puedes usar un slug o id, aquí ejemplo solo para Kim Bok-Joo
+    if (item.titulo.trim().toLowerCase() === 'kim bok-joo: el hada de las pesas') {
+        return 'series/kim-bok-joo.html';
+    }
+    // Para otras series, puedes generar el slug automáticamente
+    // return `series/${slugify(item.titulo)}.html`;
+    return '#'; // O deshabilitar el botón si no existe aún
 }
 
 // Carga todas las listas
