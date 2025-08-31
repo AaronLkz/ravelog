@@ -123,3 +123,24 @@ setTimeout(agregarCaratulas, 500);
 window.addEventListener('load', () => {
     setTimeout(agregarCaratulas, 1000);
 });
+
+// Guarda el tab activo antes de navegar a una serie
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.rave-btn');
+    if (btn && btn.href && btn.href.includes('series/')) {
+        const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
+        if (activeTab) {
+            localStorage.setItem('lastTab', activeTab);
+        }
+    }
+});
+
+// Al cargar el index, restaura el tab guardado
+document.addEventListener('DOMContentLoaded', () => {
+    const lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        const tabBtn = document.querySelector(`.tab-btn[data-tab="${lastTab}"]`);
+        if (tabBtn) tabBtn.click();
+        localStorage.removeItem('lastTab');
+    }
+});
