@@ -1,12 +1,8 @@
 import { fetchPoster } from './tmdb.js';
 
-// Configuración de Supabase
 const supabaseUrl = 'https://rxzftiapimrwlvnnppeg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4emZ0aWFwaW1yd2x2bm5wcGVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNDc1MjcsImV4cCI6MjA3MTcyMzUyN30.pkWs-omaGxgXq5gVNdHHfGYJ-pVXMAOGJR6vYaSBptQ';
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-// Kim Bok-Joo: El hada de las pesas
-const serieTmdbId = 68349;
 
 function escapeHtml(text) {
     const div = document.createElement('div');
@@ -15,8 +11,16 @@ function escapeHtml(text) {
 }
 
 async function cargarCapitulos() {
+    const section = document.querySelector('#capitulos-lista');
     const ul = document.querySelector('.chapters-gallery');
     ul.innerHTML = '';
+
+    // Lee el TMDB ID desde el atributo data-tmdb-id
+    const serieTmdbId = section?.dataset.tmdbId;
+    if (!serieTmdbId) {
+        ul.innerHTML = `<li style="color:red;">No se encontró el ID de la serie.</li>`;
+        return;
+    }
 
     const { data, error } = await supabase
         .from('capitulos_series')
@@ -55,7 +59,6 @@ async function cargarCapitulos() {
         li.innerHTML = `
             ${posterUrl ? `<img src="${posterUrl}" alt="Poster capítulo">` : ''}
             <div class="chapter-title">T${cap.temporada}E${cap.numero} - ${escapeHtml(titulo)}</div>
-            ${overview ? `<div class="chapter-overview">${escapeHtml(overview)}</div>` : ''}
             <a class="rave-btn${cap.rave_link ? '' : ' disabled'}"
                 href="${cap.rave_link ? cap.rave_link : '#'}"
                 target="_blank"
