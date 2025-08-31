@@ -3,28 +3,65 @@ const supabaseUrl = 'https://rxzftiapimrwlvnnppeg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4emZ0aWFwaW1yd2x2bm5wcGVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNDc1MjcsImV4cCI6MjA3MTcyMzUyN30.pkWs-omaGxgXq5gVNdHHfGYJ-pVXMAOGJR6vYaSBptQ';
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+// Obtiene los tmdb_id únicos de las series que tienen capítulos registrados
+async function obtenerSeriesConCapitulosIds() {
+    const { data, error } = await supabase
+        .from('capitulos_series')
+        .select('serie_tmdb_id');
+    if (error) return [];
+    // Devuelve solo los IDs únicos
+    return [...new Set(data.map(row => row.serie_tmdb_id))];
+}
+
+// Genera el slug para el link de capítulos
+function slugify(texto) {
+    return texto.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
+// Escapa caracteres HTML especiales
+function escapeHtml(texto) {
+    const div = document.createElement('div');
+    div.textContent = texto;
+    return div.innerHTML;
+}
+
+// Renderiza el ítem de serie con el botón de capítulos
+function renderSerieItem(item, seriesConCapitulosIds) {
+    const tieneCapitulos = seriesConCapitulosIds.includes(item.tmdb_id);
+    const slug = slugify(item.titulo);
+    const capLink = tieneCapitulos ? `series/${slug}.html` : '#';
+    const capBtnClass = `rave-btn${tieneCapitulos ? '' : ' disabled'}`;
+    return `
+        <span class="title">${escapeHtml(item.titulo)}</span>
+        <a class="${capBtnClass}" href="${capLink}" ${tieneCapitulos ? '' : 'tabindex="-1" aria-disabled="true"'}>Ver capítulos</a>
+    `;
+}
+
 // Carga una lista específica
-async function cargarLista(tabla, ulSelector) {
+async function cargarLista(tabla, ulSelector, seriesConCapitulosIds = []) {
     const { data, error } = await supabase.from(tabla).select('*');
-    if (error) {
-        console.error(`Error cargando ${tabla}:`, error.message);
-        return [];
-    }
+    if (error) return [];
     const ul = document.querySelector(ulSelector);
     ul.innerHTML = '';
     if (data) {
         data.forEach(item => {
-            const tieneLink = !!item.rave_link;
             const li = document.createElement('li');
-            li.innerHTML = `
-                <span class="title">${item.titulo}</span>
-                <a 
-                    class="rave-btn${tieneLink ? '' : ' disabled'}"
-                    href="${tieneLink ? item.rave_link : '#'}"
-                    target="_blank" rel="noopener"
-                    ${tieneLink ? '' : 'tabindex="-1" aria-disabled="true"'}
-                >Ver en Rave</a>
-            `;
+            // Si es una serie, muestra el botón de capítulos
+            if (tabla === 'vistas_series' || tabla === 'pendientes_series') {
+                li.innerHTML = renderSerieItem(item, seriesConCapitulosIds);
+            } else {
+                // Para películas, sigue mostrando el botón de Rave
+                const tieneLink = !!item.rave_link;
+                li.innerHTML = `
+                    <span class="title">${escapeHtml(item.titulo)}</span>
+                    <a 
+                        class="rave-btn${tieneLink ? '' : ' disabled'}"
+                        href="${tieneLink ? item.rave_link : '#'}"
+                        target="_blank" rel="noopener"
+                        ${tieneLink ? '' : 'tabindex="-1" aria-disabled="true"'}
+                    >Ver en Rave</a>
+                `;
+            }
             if (item.tmdb_id) {
                 li.dataset.tmdbId = item.tmdb_id;
             }
@@ -47,7 +84,7 @@ async function cargarTodasPeliculas() {
         const tieneLink = !!item.rave_link;
         const li = document.createElement('li');
         li.innerHTML = `
-            <span class="title">${item.titulo}</span>
+            <span class="title">${escapeHtml(item.titulo)}</span>
             <a 
                 class="rave-btn${tieneLink ? '' : ' disabled'}"
                 href="${tieneLink ? item.rave_link : '#'}"
@@ -63,7 +100,7 @@ async function cargarTodasPeliculas() {
 }
 
 // Carga todas las series (vistas + pendientes)
-async function cargarTodasSeries() {
+async function cargarTodasSeries(seriesConCapitulosIds) {
     const [vistas, pendientes] = await Promise.all([
         supabase.from('vistas_series').select('*'),
         supabase.from('pendientes_series').select('*')
@@ -74,34 +111,21 @@ async function cargarTodasSeries() {
     data.forEach(item => {
         const li = document.createElement('li');
         li.classList.add('serie-item');
-        li.innerHTML = `
-            <span class="title">${item.titulo}</span>
-            <a class="rave-btn" href="${getCapitulosLink(item)}">Ver capítulos</a>
-        `;
+        li.innerHTML = renderSerieItem(item, seriesConCapitulosIds);
         ul.appendChild(li);
     });
 }
 
-// Función para obtener el link de capítulos según el título
-function getCapitulosLink(item) {
-    // Puedes usar un slug o id, aquí ejemplo solo para Kim Bok-Joo
-    if (item.titulo.trim().toLowerCase() === 'kim bok-joo: el hada de las pesas') {
-        return 'series/kim-bok-joo.html';
-    }
-    // Para otras series, puedes generar el slug automáticamente
-    // return `series/${slugify(item.titulo)}.html`;
-    return '#'; // O deshabilitar el botón si no existe aún
-}
-
 // Carga todas las listas
 async function cargarTodo() {
+    const seriesConCapitulosIds = await obtenerSeriesConCapitulosIds();
     await Promise.all([
         cargarTodasPeliculas(),
-        cargarTodasSeries(),
+        cargarTodasSeries(seriesConCapitulosIds),
         cargarLista('vistas', '#vistas-peliculas .gallery'),
-        cargarLista('vistas_series', '#vistas-series .gallery'),
+        cargarLista('vistas_series', '#vistas-series .gallery', seriesConCapitulosIds),
         cargarLista('pendientes', '#pendientes-peliculas .gallery'),
-        cargarLista('pendientes_series', '#pendientes-series .gallery')
+        cargarLista('pendientes_series', '#pendientes-series .gallery', seriesConCapitulosIds)
     ]);
     if (window.agregarCaratulas) {
         await window.agregarCaratulas(); // Usa await si es async

@@ -8,9 +8,15 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 // Kim Bok-Joo: El hada de las pesas
 const serieTmdbId = 68349;
 
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 async function cargarCapitulos() {
     const ul = document.querySelector('.chapters-gallery');
-    ul.innerHTML = '<li>Cargando capítulos...</li>';
+    ul.innerHTML = '';
 
     const { data, error } = await supabase
         .from('capitulos_series')
@@ -19,12 +25,10 @@ async function cargarCapitulos() {
         .order('temporada', { ascending: true })
         .order('numero', { ascending: true });
 
-    console.log('Respuesta de Supabase:', { data, error });
-
     ul.innerHTML = '';
 
     if (error) {
-        ul.innerHTML = `<li style="color:red;">Error cargando capítulos: ${error.message}</li>`;
+        ul.innerHTML = `<li style="color:red;">Error cargando capítulos.</li>`;
         return;
     }
     if (!data || data.length === 0) {
@@ -33,7 +37,6 @@ async function cargarCapitulos() {
     }
 
     for (const cap of data) {
-        // Traer info del capítulo desde TMDB
         const tmdbUrl = `https://api.themoviedb.org/3/tv/${serieTmdbId}/season/${cap.temporada}/episode/${cap.numero}?api_key=4383dc16d81a7584696651b492c79c6a&language=es-MX`;
         let titulo = cap.titulo || '';
         let posterUrl = '';
@@ -41,20 +44,18 @@ async function cargarCapitulos() {
         try {
             const res = await fetch(tmdbUrl);
             const tmdbData = await res.json();
-            console.log('TMDB data:', tmdbData);
             titulo = titulo || tmdbData.name || `Episodio ${cap.numero}`;
             posterUrl = tmdbData.still_path ? `https://image.tmdb.org/t/p/w500${tmdbData.still_path}` : '';
             overview = tmdbData.overview || '';
         } catch (e) {
-            console.error('Error consultando TMDB:', e);
             titulo = titulo || `Episodio ${cap.numero}`;
         }
 
         const li = document.createElement('li');
         li.innerHTML = `
             ${posterUrl ? `<img src="${posterUrl}" alt="Poster capítulo">` : ''}
-            <div class="chapter-title">T${cap.temporada}E${cap.numero} - ${titulo}</div>
-            ${overview ? `<div class="chapter-overview">${overview}</div>` : ''}
+            <div class="chapter-title">T${cap.temporada}E${cap.numero} - ${escapeHtml(titulo)}</div>
+            ${overview ? `<div class="chapter-overview">${escapeHtml(overview)}</div>` : ''}
             <a class="rave-btn${cap.rave_link ? '' : ' disabled'}"
                 href="${cap.rave_link ? cap.rave_link : '#'}"
                 target="_blank"
