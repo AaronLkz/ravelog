@@ -32,7 +32,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Header unificado con tabs */
 header {
     background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
     position: relative;
@@ -53,7 +52,6 @@ header::before {
     pointer-events: none;
 }
 
-/* Contenedor del título */
 .header-title {
     padding: 2rem 2rem 1rem 2rem;
     text-align: center;
@@ -82,7 +80,6 @@ header h1 span:hover {
     color: var(--accent-hover);
 }
 
-/* Navegación integrada */
 .tabs {
     background: transparent;
     margin: 0;
@@ -95,7 +92,6 @@ header h1 span:hover {
     -webkit-backdrop-filter: blur(20px);
 }
 
-/* Quitar sticky en móvil */
 @media (max-width: 900px) {
     .tabs {
         position: static;
@@ -165,7 +161,6 @@ header h1 span:hover {
     display: none;
 }
 
-/* Barra de búsqueda elegante */
 .search-bar {
     background: var(--bg);
     padding: 2rem 2rem 1.5rem 2rem;
@@ -212,7 +207,6 @@ header h1 span:hover {
     color: var(--text-muted);
 }
 
-/* Contenido principal */
 main {
     max-width: 1400px;
     margin: 0 auto;
@@ -229,7 +223,6 @@ section.active {
     display: block;
 }
 
-/* Galería mejorada - 5 carátulas por fila */
 .gallery {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -277,7 +270,6 @@ section.active {
     box-shadow: var(--shadow-hover);
 }
 
-/* Posters mejorados */
 .poster,
 .gallery .fake-poster {
     width: 180px;
@@ -291,7 +283,6 @@ section.active {
     transition: all 0.3s ease;
 }
 
-/* Skeleton loading para evitar parpadeo */
 .gallery li::after {
     content: '';
     position: absolute;
@@ -339,7 +330,6 @@ section.active {
     background: linear-gradient(135deg, var(--card) 0%, var(--bg-secondary) 100%);
 }
 
-/* Títulos mejorados */
 .gallery .title {
     font-size: 1.1rem;
     font-weight: 600;
@@ -352,7 +342,6 @@ section.active {
     white-space: nowrap;
 }
 
-/* Botones Rave profesionales */
 .rave-btn {
     background: var(--gradient);
     color: var(--bg);
@@ -406,7 +395,6 @@ section.active {
     opacity: 0.6;
 }
 
-/* Footer elegante */
 footer {
     background: var(--bg-secondary);
     text-align: center;
@@ -417,7 +405,6 @@ footer {
     letter-spacing: 0.5px;
 }
 
-/* Ajuste visual para capítulos: posters más pequeños y grid compacto */
 .chapters-gallery {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -430,9 +417,9 @@ footer {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 1rem; /* antes 1.5rem */
+    padding: 1rem;
     text-align: center;
-    min-height: 320px; /* antes 400px */
+    min-height: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -471,7 +458,7 @@ footer {
     max-width: 260px;
     height: 146px;
     border-radius: var(--radius);
-    margin-bottom: 0.3rem; /* antes 0.5rem */
+    margin-bottom: 0.3rem;
     background: var(--bg-secondary);
     box-shadow: var(--shadow);
     border: 2px solid var(--border);
@@ -481,14 +468,13 @@ footer {
 }
 
 .chapter-title {
-    margin-bottom: 0.2rem; /* antes 0.3rem */
+    margin-bottom: 0.2rem;
 }
 
 .chapter-overview {
-    margin-bottom: 0.2rem; /* antes 0.3rem */
+    margin-bottom: 0.2rem;
 }
 
-/* Animaciones */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -511,7 +497,6 @@ footer {
     }
 }
 
-/* Responsive mejorado - Grid específico */
 @media (max-width: 1200px) {
     .gallery {
         grid-template-columns: repeat(4, 1fr);
@@ -560,13 +545,6 @@ footer {
         letter-spacing: -1px;
     }
     
-    header::after {
-        top: 0.5rem;
-        right: 1rem;
-        font-size: 1rem;
-        letter-spacing: 2px;
-    }
-    
     .tabs {
         padding: 0.5rem 1rem 1.5rem 1rem;
     }
@@ -612,7 +590,6 @@ footer {
         padding: 2rem 1rem;
     }
     
-    /* 2 carátulas por fila en móviles */
     .gallery {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
@@ -629,7 +606,6 @@ footer {
         height: 225px;
     }
     
-    /* Ajustar skeleton para móviles */
     .gallery li::after {
         width: 150px;
         height: 225px;
@@ -673,7 +649,6 @@ footer {
         box-shadow: 0 4px 16px rgba(255, 214, 165, 0.3) !important;
     }
     
-    /* Ajustar skeleton para móviles pequeños */
     .gallery li::after {
         width: 120px;
         height: 180px;
@@ -700,12 +675,10 @@ footer {
     }
 }
 
-/* Efectos de scroll suaves */
 html {
     scroll-behavior: smooth;
 }
 
-/* Selección de texto personalizada */
 ::selection {
     background: var(--accent);
     color: var(--bg);
@@ -716,7 +689,6 @@ html {
     color: var(--bg);
 }
 
-/* Scrollbar personalizada */
 ::-webkit-scrollbar {
     width: 8px;
 }
