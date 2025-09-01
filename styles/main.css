@@ -616,16 +616,21 @@ footer {
     }
     
     .tabs-row {
-        gap: var(--space-md);
+        gap: var(--space-sm);
+        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 400px;
+        margin: 0 auto;
     }
     
     .tab-btn {
-        padding: 0.875rem 1.5rem;
-        font-size: 0.95rem;
-        min-width: 140px;
-        margin: var(--space-sm);
-        transform: none !important;
-        box-shadow: none !important;
+        padding: 0.75rem 0.8rem;
+        font-size: 0.9rem;
+        min-width: auto;
+        width: 100%;
+        margin: 0;
+        flex: none;
     }
     
     .tab-btn:hover {
@@ -696,13 +701,17 @@ footer {
         height: 180px;
     }
     
+    .tabs-row {
+        gap: var(--space-sm);
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 350px;
+    }
+    
     .tab-btn {
-        min-width: 130px;
-        padding: 0.75rem 1.25rem;
-        font-size: 0.9rem;
-        margin: var(--space-sm);
-        transform: none !important;
-        box-shadow: none !important;
+        padding: 0.6rem 0.6rem;
+        font-size: 0.8rem;
+        width: 100%;
+        margin: 0;
     }
     
     .tab-btn:hover {
@@ -738,6 +747,26 @@ footer {
         height: auto;
         margin-bottom: 0.5rem;
         display: block;
+    }
+}
+
+@media (max-width: 360px) {
+    .tabs-row {
+        gap: var(--space-xs);
+        max-width: 300px;
+    }
+    
+    .tab-btn {
+        padding: 0.5rem 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    .header-title {
+        padding: var(--space-md) var(--space-sm) var(--space-xs) var(--space-sm);
+    }
+    
+    header h1 {
+        font-size: 2rem;
     }
 }
 
