@@ -116,9 +116,9 @@ header h1 span:hover {
 }
 
 .tabs-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-lg);
-    flex-wrap: wrap;
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -233,10 +233,71 @@ header h1 span:hover {
     color: var(--text-muted);
 }
 
+.main-tabs {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-sm);
+}
+
+.main-tab-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 2px solid var(--border);
+    padding: 1rem 2rem;
+    border-radius: var(--radius-lg);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s var(--transition-timing);
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    min-width: 160px;
+    text-align: center;
+}
+
+.main-tab-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-hover);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.main-tab-btn:hover::before {
+    left: 0;
+}
+
+.main-tab-btn:hover:not(.active) {
+    color: var(--text);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 214, 165, 0.3);
+}
+
+.main-tab-btn.active {
+    background: var(--gradient);
+    color: var(--bg);
+    border-color: var(--accent);
+    box-shadow: 0 8px 25px rgba(255, 214, 165, 0.4);
+    transform: translateY(-2px);
+}
+
+.main-tab-btn.active::before {
+    display: none;
+}
+
 main {
     max-width: 1400px;
     margin: 0 auto;
-    padding: var(--space-2xl) var(--space-xl);
+    padding: var(--space-xl) var(--space-xl);
 }
 
 section {
@@ -660,6 +721,18 @@ footer {
     .search-bar input[type="text"] {
         max-width: 100%;
         padding: 0.875rem 1.25rem;
+    }
+    
+    .main-tabs {
+        gap: var(--space-sm);
+        margin-top: var(--space-lg);
+        margin-bottom: var(--space-xs);
+    }
+    
+    .main-tab-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        min-width: 120px;
     }
     
     main {

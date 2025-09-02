@@ -26,7 +26,7 @@ class AppState {
 const appState = new AppState();
 
 // Navegación por tabs
-document.querySelectorAll('.tab-btn').forEach(btn => {
+document.querySelectorAll('.tab-btn, .main-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         if (appState.isTabRestoring()) return; // Evitar clicks durante restauración
         
@@ -37,11 +37,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // Función centralizada para cambiar de tab
 function switchToTab(tabId) {
     // Limpiar estado anterior
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-btn, .main-tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('main section').forEach(sec => sec.classList.remove('active'));
     
     // Activar nuevo tab
-    const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+    const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"], .main-tab-btn[data-tab="${tabId}"]`);
     const section = document.getElementById(tabId);
     
     if (tabBtn && section) {
@@ -154,7 +154,7 @@ window.loadPostersForSection = loadPostersForSection;
 document.addEventListener('click', function(e) {
     const btn = e.target.closest('.rave-btn');
     if (btn && btn.href && btn.href.includes('series/')) {
-        const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
+        const activeTab = document.querySelector('.tab-btn.active, .main-tab-btn.active')?.dataset.tab;
         if (activeTab) {
             localStorage.setItem('lastTab', activeTab);
             console.log(`💾 Guardando tab activo: ${activeTab}`);
