@@ -275,7 +275,7 @@ header h1 span:hover {
     left: 0;
 }
 
-.main-tab-btn:hover:not(.active) {
+.main-tab-btn:hover {
     color: var(--text);
     border-color: var(--accent);
     transform: translateY(-2px);
@@ -465,14 +465,14 @@ section.active {
     left: 0;
 }
 
-.rave-btn:hover:not(.disabled) {
+.rave-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(255, 214, 165, 0.4);
     color: var(--bg);
     animation: button-pulse 0.6s ease-in-out;
 }
 
-.rave-btn:active:not(.disabled) {
+.rave-btn:active {
     transform: translateY(-1px);
 }
 
@@ -656,6 +656,11 @@ footer {
         margin-bottom: 0.1rem;
         font-size: 0.95em;
     }
+    .rave-btn {
+        min-width: 100px;
+        padding: 0.5rem 1rem;
+        font-size: 0.92rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -812,6 +817,12 @@ footer {
         height: 180px;
         top: var(--space-md);
     }
+
+    .rave-btn {
+        min-width: 80px;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+    }
     
     .chapters-gallery {
         grid-template-columns: repeat(2, 1fr);
@@ -905,21 +916,5 @@ html {
     :root {
         --border: #555555;
         --text-secondary: #888888;
-    }
-}
-
-@media (max-width: 900px) {
-    .rave-btn {
-        min-width: 100px;
-        padding: 0.5rem 1rem;
-        font-size: 0.92rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .rave-btn {
-        min-width: 80px;
-        padding: 0.4rem 0.7rem;
-        font-size: 0.9rem;
     }
 }
