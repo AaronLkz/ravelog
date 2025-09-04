@@ -381,6 +381,16 @@ section.active {
     display: none;
 }
 
+/* Oculta el título mientras se carga el poster (cuando no existe la clase .poster) */
+.gallery li:not(:has(.poster)) .title {
+    visibility: hidden;
+}
+
+/* Muestra el título cuando el poster ya está cargado */
+.gallery li:has(.poster) .title {
+    visibility: visible;
+}
+
 @keyframes skeleton-loading {
     0% {
         background-position: 200% 0;
