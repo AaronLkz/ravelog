@@ -37,6 +37,15 @@ function renderSerieItem(item, seriesConCapitulosIds) {
     `;
 }
 
+// Ordena alfabéticamente por título (función utilitaria)
+function ordenarPorTitulo(arr, campo = 'titulo') {
+    return arr.slice().sort((a, b) => {
+        const tA = (a[campo] || '').toLowerCase();
+        const tB = (b[campo] || '').toLowerCase();
+        return tA.localeCompare(tB);
+    });
+}
+
 // Carga una lista específica
 async function cargarLista(tabla, ulSelector, seriesConCapitulosIds = []) {
     const { data, error } = await supabase.from(tabla).select('*');
@@ -44,7 +53,8 @@ async function cargarLista(tabla, ulSelector, seriesConCapitulosIds = []) {
     const ul = document.querySelector(ulSelector);
     ul.innerHTML = '';
     if (data) {
-        data.forEach(item => {
+        const ordenados = ordenarPorTitulo(data, 'titulo');
+        ordenados.forEach(item => {
             const li = document.createElement('li');
             // Si es una serie, muestra el botón de capítulos
             if (tabla === 'vistas_series' || tabla === 'pendientes_series') {
@@ -71,16 +81,17 @@ async function cargarLista(tabla, ulSelector, seriesConCapitulosIds = []) {
     return data || [];
 }
 
-// Carga todas las películas (vistas + pendientes)
+// Modifica cargarTodasPeliculas para ordenar
 async function cargarTodasPeliculas() {
     const [vistas, pendientes] = await Promise.all([
         supabase.from('vistas').select('*'),
         supabase.from('pendientes').select('*')
     ]);
     const data = [...(vistas.data || []), ...(pendientes.data || [])];
+    const ordenados = ordenarPorTitulo(data, 'titulo');
     const ul = document.querySelector('#todas-peliculas .gallery');
     ul.innerHTML = '';
-    data.forEach(item => {
+    ordenados.forEach(item => {
         const tieneLink = !!item.rave_link;
         const li = document.createElement('li');
         li.innerHTML = `
@@ -99,16 +110,17 @@ async function cargarTodasPeliculas() {
     });
 }
 
-// Carga todas las series (vistas + pendientes)
+// Modifica cargarTodasSeries para ordenar
 async function cargarTodasSeries(seriesConCapitulosIds) {
     const [vistas, pendientes] = await Promise.all([
         supabase.from('vistas_series').select('*'),
         supabase.from('pendientes_series').select('*')
     ]);
     const data = [...(vistas.data || []), ...(pendientes.data || [])];
+    const ordenados = ordenarPorTitulo(data, 'titulo');
     const ul = document.querySelector('#todas-series .gallery');
     ul.innerHTML = '';
-    data.forEach(item => {
+    ordenados.forEach(item => {
         const li = document.createElement('li');
         li.classList.add('serie-item');
         li.innerHTML = renderSerieItem(item, seriesConCapitulosIds);
@@ -159,3 +171,17 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         if (searchInput) searchInput.value = '';
     });
 });
+
+function renderGallery(items, galleryElement) {
+    // Ordena los elementos por título alfabéticamente
+    items.sort((a, b) => {
+        const titleA = (a.title || '').toLowerCase();
+        const titleB = (b.title || '').toLowerCase();
+        return titleA.localeCompare(titleB);
+    });
+
+    galleryElement.innerHTML = '';
+    items.forEach(item => {
+        // ...código para crear y agregar cada elemento a la galería...
+    });
+}
