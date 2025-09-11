@@ -938,7 +938,7 @@ html {
     .episode-badge-poster {
         font-size: 9px;
         padding: 2px 6px;
-        bottom: 5px;
-        left: 5px;
+        bottom: 10px;
+        left: 10px;
     }
 }
