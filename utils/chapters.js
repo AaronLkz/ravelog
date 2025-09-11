@@ -57,8 +57,11 @@ async function cargarCapitulos() {
 
         const li = document.createElement('li');
         li.innerHTML = `
-            ${posterUrl ? `<img src="${posterUrl}" alt="Poster capítulo">` : ''}
-            <div class="chapter-title">T${cap.temporada}E${cap.numero} - ${escapeHtml(titulo)}</div>
+            <div class="poster-container">
+                ${posterUrl ? `<img src="${posterUrl}" alt="Poster capítulo">` : ''}
+                <span class="episode-badge-poster">Episodio ${cap.numero}</span>
+            </div>
+            <div class="chapter-title">${escapeHtml(titulo)}</div>
             <a class="rave-btn${cap.rave_link ? '' : ' disabled'}"
                 href="${cap.rave_link ? cap.rave_link : '#'}"
                 target="_blank"
